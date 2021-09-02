@@ -108,7 +108,7 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 			if (yy - (double)Y > 0.5) {
 				Y++;
 			}
-			std::cout << X << ' ' << Y << '\n'; 
+			// std::cout << X << ' ' << Y << '\n'; 
 			if (points.find(X * 500 + Y) == points.end()) {
 				points.insert(X * 500 + Y);
 			}
@@ -131,16 +131,16 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 
 
 int main() {
-	int nums[5] = {0, 4, 4, 9, 11};
-	for (int i = 1; i <= 4; i++) {
-		string s = to_string(i) + '/';
+	int nums[25] = {0, 4, 4, 9, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2, 2, 2, 2, 2, 2, 2};
+	for (int i = 1; i <= 24; i++) {
+		string s = "cordinates/" + to_string(i) + '/';
 		for (int j = 1; j <= nums[i]; j++) {
 			string fileName = s + to_string(j) + ".txt";
-			cout << fileName << endl;
 			vector<vector<double>> points = getCordinate(fileName);
-			string output = "res" + to_string((i + 1) / 2) + ".txt";
-			if (i % 2)
+			string output = "splines/res" + to_string((i + 1) / 2) + ".txt";
+			if (i % 2) {
 				generate(points[1], points[0], output, true);
+			}
 			else 
 				generate(points[0], points[1], output, false);
 

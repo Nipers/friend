@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <fstream>
+#include <string>
 using namespace std;
 
 // 读取坐标
@@ -14,7 +15,6 @@ set<int> getCordinate(string fileName) {
         x--, y--;
         ans.insert(x * 500 + y);
 	}	
-    cout << ans.size() << endl;
 	return ans;
 }
 // 得到曲线外部的所有点
@@ -40,7 +40,6 @@ set<int> generateOutPoint(string file) {
             }
         }
     }
-    cout << right <<endl;
     return ans;
 }
 // 判断file1和file2中曲线的包含关系，返回1表示file1>file2
@@ -63,6 +62,19 @@ int check(string file1, string file2) {
 }
 
 int main() {
-    cout << check("edges/1.txt", "edges/2.txt") << endl;
+    for (int i = 1; i <= 12; i++) {
+        cout << "被曲线 " << i << " 包含的曲线有";
+        for (int j = 1; j <= 12; j++) {
+            if (i == j)
+                continue;
+            string file1 = "splines/res" + to_string(i) + ".txt";
+            string file2 = "splines/res" + to_string(j) + ".txt";
+
+            if (check(file1, file2) == 1)
+                cout << " " << j;
+            
+        }
+        cout << "\n";
+    }
     return 0;
 }

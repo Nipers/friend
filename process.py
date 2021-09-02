@@ -91,21 +91,91 @@ def process():
 
 if __name__ == "__main__":
     t = numpy.zeros([500, 500],dtype=numpy.int8)
-    file = open("edges/1.txt", "r")
+    file = open("splines/res12.txt", "r")
     line = file.readline()
     while(line):
         nums = line.split(" ")
         t[int(nums[0])][int(nums[1])] = 1
         line = file.readline()
     file.close()
-    file = open("edges/2.txt", "r")
-    line = file.readline()
-    while(line):
-        nums = line.split(" ")
-        t[int(nums[0])][int(nums[1])] = 1
-        line = file.readline()
-    file.close()
-    file = open("t.txt", "w")
+    # file = open("res2.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res2.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res3.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res4.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res5.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res6.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res7.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res8.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res9.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res10.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    # file = open("res11.txt", "r")
+    # line = file.readline()
+    # while(line):
+    #     nums = line.split(" ")
+    #     t[int(nums[0])][int(nums[1])] = 1
+    #     line = file.readline()
+    # file.close()
+    file = open("tt.txt", "w")
     for i in range(500):
         for j in range(500):
             if t[i][j] == 1:
