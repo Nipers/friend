@@ -57,7 +57,7 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 	for (int i = 0; i < size; i++) {
 		M(i) = 0;
 	}
- 
+	// 在这里构造H矩阵和Y向量
 	H(0, 0) = 1;
 	H(size - 1, size - 1) = 1;
 	for (int i = 1; i < size - 1; i++) {
@@ -66,7 +66,7 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 		H(i, i + 1) = dx[i];
 		Y(i) = 3 * (dy[i] / dx[i] - dy[i - 1] / dx[i - 1]);
 	}
- 
+	// 解方程得到多项式系数
 	M = H.colPivHouseholderQr().solve(Y);
  
 	vector<double> ai, bi, ci, di;
@@ -76,7 +76,7 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 		bi.push_back(dy[i] / dx[i] - dx[i] * (2 * M(i) + M(i + 1)) / 3);
 		ci.push_back(M(i));
 	}
- 
+	// 进行插值拟合
 	for (int i = 0; i < size - 1; i++) {
 		double x1 = x[i], x2 = x[i + 1], y1 = y[i], y2 = y[i + 1];
 		double dis = 0;
@@ -96,11 +96,8 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 		int num = (int) dis;
 		double length = (x2 - x1) / (double) num;
 		double xx = x1;
-		// std::cout << xx << '\t' << x2 << '\t' << length << '\t' << num << '\n';
 		for (xx; check(x1, x2, xx); xx += length) {
-			// std::cout << xx << '\t';
 			double yy = ai[i] + bi[i] * (xx - x[i]) + M(i) * pow((xx - x[i]), 2) + di[i] * pow((xx - x[i]), 3);
-			// std::cout << yy << '\n'; 
 			int X = (int)xx, Y = (int) yy;
 			if (xx - (double)X > 0.5) {
 				X++;
@@ -108,17 +105,15 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 			if (yy - (double)Y > 0.5) {
 				Y++;
 			}
-			// std::cout << X << ' ' << Y << '\n'; 
 			if (points.find(X * 500 + Y) == points.end()) {
 				points.insert(X * 500 + Y);
 			}
 		}	
-		// std::cout << '\n';
 	}
 	std::ofstream output;
 	output.open(fileName, ios::app);
+	// 写入拟合结果
 	for (int i : points) {
-		// output << i / 500 << ' ' << i % 500 << std::endl;
 		if (rotated)
 			output << i % 500 << ' ' << i / 500 << std::endl;
 		else
@@ -131,6 +126,7 @@ void generate(vector<double> x, vector<double> y, string fileName, bool rotated)
 
 
 int main() {
+	// nums里记录了文件夹中曲线被切分的段数，比如1号曲线拆分之后放在cordinate/1和/2中，nums[1]和nums[2]就记录了两个文件夹中分别有4个txt文件
 	int nums[25] = {0, 4, 4, 9, 11, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,2, 2, 2, 2, 2, 2, 2};
 	for (int i = 1; i <= 24; i++) {
 		string s = "cordinates/" + to_string(i) + '/';
