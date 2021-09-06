@@ -1,8 +1,8 @@
 all : c d
 d : d.cpp
-	/usr/bin/g++ -g /mnt/d/Fan/d.cpp -o /mnt/d/Fan/d
+	g++ d.cpp -o d
 c : c.cpp
-	/usr/bin/g++ -g /mnt/d/Fan/c.cpp -o /mnt/d/Fan/c
+	g++ c.cpp -o c
 
 reset :
 	rm -f splines/*
