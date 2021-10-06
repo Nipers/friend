@@ -51,6 +51,19 @@ public class Session {
                 if (login()) {
                     employerMenu();
                     choice = Utils.choice("Session Admin: "+" - Menu Commands (C/R/U/D/V/S/X)");
+                    switch (choice) {
+                        case 'C':
+                        case 'R':
+                        
+                        case 'U':
+                        case 'D':
+                        case 'V':
+                            
+                        case 'S':
+                            STPMenu();
+                        case 'X':
+
+                    }
                 }
             }
             else if (choice == 'X') {
