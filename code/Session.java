@@ -2,7 +2,7 @@ public class Session {
     private Employers employers;
     
     public Session() {
-        String.valueOf(employers);
+        employers = new Employers();
     };
     private static void MainMenu() {
         System.out.println("STP Payroll Management System:");
@@ -19,8 +19,19 @@ public class Session {
         if (employers.check(email, password)) {
             return true;
         }        
-        System.out.print("Incorrect employer details!");
+        System.out.println("Incorrect employer details!");
         return false;
+    }    
+    private static void employerMenu() {
+        System.out.println("Employer Menu: ");
+        System.out.println("C- Add Employee");
+        System.out.println("R- View Employee");
+        System.out.println("U- Update Employee");
+        System.out.println("D- Delete Employee");
+        System.out.println("V- View Employees");
+        System.out.println("S- STP Menu");
+        System.out.println("X- Logout");
+
     }
     private static void STPMenu() {
         System.out.print("STP Menu: ");
@@ -32,17 +43,25 @@ public class Session {
         System.out.print("X- Close");
 
     }
-    public static void main(String[] args) {
+    private void process() {
+        MainMenu();
         while (true) {
-            MainMenu();
             char choice = Utils.choice("Command (L/X)");
             if (choice == 'L') {
-                login();
+                if (login()) {
+                    employerMenu();
+                    choice = Utils.choice("Session Admin: "+" - Menu Commands (C/R/U/D/V/S/X)");
+                }
             }
             else if (choice == 'X') {
                 Exit();
                 return;
             }
         }
+
+    }
+    public static void main(String[] args) {
+        Session session = new Session();
+        session.process();
     }
 }

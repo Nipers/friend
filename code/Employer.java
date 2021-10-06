@@ -15,6 +15,9 @@ public class Employer {
 
     public String ToString() {
         return name + "|" + email + "|" + password + "|" + employees + "|"+ stp;
+    };
+    public boolean check(String e, String p) {
+        return email.equals(e) && password.equals(p);
     }
     
    

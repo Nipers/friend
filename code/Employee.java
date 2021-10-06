@@ -14,7 +14,7 @@ public class Employee {
     private double superannuation;
     private double superRate;
     private Employer employer;
-    public Employee(int H, double pph) {
+    public Employee(String Name, String Email, String Phone, String Type, String Address, String tfn, int H, double pph) {
         payPerHour = pph;
         hours = H;
         income = hours * 52 * payPerHour;
@@ -38,9 +38,9 @@ public class Employee {
         superRate = 0.09;
         superannuation = income * superRate;
     }
-    // public String Tostring() {
-    //     return 
-    // }
+    public String Tostring() {
+        return Utils.employeeFormat;
+    }
     public String getName() {
         return name;
     }
