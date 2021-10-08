@@ -2,16 +2,20 @@ if __name__ == "__main__":
     price = []
     file = open("data.txt", "r")
     line = file.readline()
+    x = 0
     while line:
-        price.append(float(price))
+        x += 1
+        price.append(float(line))
         line = file.readline()
+        if x > 63456:
+            break
     buy = []
     sell = []
     buy.append(0)
     sell.append(0)
     for p in price:
-        buy.append(p / 0.991)
-        sell.append(p * 0.0991 * 0.9)
+        buy.append(p / 0.991 / 0.9)
+        sell.append(p * 0.991 * 0.9)
     dayNum = len(price) + 1
     nodes = []
     for i in range(dayNum):
@@ -20,20 +24,20 @@ if __name__ == "__main__":
     for i in range(1, dayNum):
         for j in range(max(0, i - 100), i):
             for cap in nodes[j]:
-                s1 = min(cap, 150), s2 = cap - s1
-                b1 = max(135, 580 - cap), b2 = cap + b1
-                gain = nodes[j][cap]
+                s1 = min(cap, 150)
+                s2 = cap - s1
+                b1 = min(135, 580 - cap)
+                b2 = cap + b1
+                gain = nodes[j][cap][0]
                 b = gain - b1 * buy[i]
                 s = gain + s1 * sell[i]
                 if nodes[i].get(b2) == None or b > nodes[i][b2][0]:
-                    if i <= 100 or b > 0:
-                        nodes[i][b2] = [b, j]
-                if nodes[i].get(s2) == None or b > nodes[i][s2][0]:
-                    if i <= 100 or s > 0:
-                        nodes[i][s2] = [s, j]
+                    nodes[i][b2] = [b, j]
+                if nodes[i].get(s2) == None or s > nodes[i][s2][0]:
+                    nodes[i][s2] = [s, j]
                 if nodes[i].get(cap) == None or nodes[j][cap][0] > nodes[i][cap][0]:
-                    if i <= 100 or nodes[j][cap][0] > 0:
-                        nodes[i][cap] = [nodes[j][cap][0], j]
+                    nodes[i][cap] = [nodes[j][cap][0], j]
+        print(i)
     gain = 0
     front = 0
     cap = 0
@@ -45,22 +49,44 @@ if __name__ == "__main__":
     print(gain)
     behind = dayNum - 1
     path = []
-    path.append([behind, cap])
+    # print([behind, cap])
+    file = open("solution.txt", "w")
+    file.write(str(behind))
     while front != 0:
         for key in nodes[front]:
-            if key > cap and nodes[front][key][0] - nodes[behind][cap][0] == (key - cap) * sell[behind]:
-                behind = front, cap = key, front = nodes[front][key][1]
+            if key > cap and abs(nodes[behind][cap][0] - nodes[front][key][0] - (key - cap) * sell[behind]):
+                behind = front
+                cap = key
+                front = nodes[front][key][1]
+                file.write("S")
+                file.write(str(behind))
+                # print(nodes[behind])
+                # print(cap)
+                # print(front)
+                # print(nodes[front])
                 break
-            elif key < cap and nodes[front][key][0] - nodes[behind][cap][0] == (key - cap) * buy[behind]:
-                behind = front, cap = key, front = nodes[front][key][1]
+            elif key < cap and abs(nodes[behind][cap][0] - nodes[front][key][0] - (key - cap) * buy[behind]) < 1:
+                behind = front
+                cap = key
+                front = nodes[front][key][1]
+                file.write("B")
+                file.write(str(behind))
+                # print(nodes[behind])
+                # print(cap)
+                # print(front)
+                # print(nodes[front])
                 break
             elif nodes[front][key][0] == nodes[behind][cap][0]:
-                behind = front, cap = key, front = nodes[front][key][1]
+                behind = front
+                cap = key
+                front = nodes[front][key][1]
+                file.write("N")
+                file.write(str(behind))
+                # print(nodes[behind])
+                # print(cap)
+                # print(front)
+                # print(nodes[front])
                 break
-        path.append([behind, cap])
-    for p in path:
-        print(p)
-        print("\n")
         
 
     
