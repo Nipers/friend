@@ -1,4 +1,10 @@
+
+import time
+
+
 if __name__ == "__main__":
+ 
+    localtime1 = time.localtime(time.time())
     price = []
     file = open("data.txt", "r")
     line = file.readline()
@@ -22,7 +28,7 @@ if __name__ == "__main__":
         nodes.append({})
         nodes[i][0] = [0.0, 0]
     for i in range(1, dayNum):
-        for j in range(max(0, i - 100), i):
+        for j in range(max(0, i - 40), i):
             for cap in nodes[j]:
                 s1 = min(cap, 150)
                 s2 = cap - s1
@@ -46,20 +52,19 @@ if __name__ == "__main__":
             gain = nodes[dayNum - 1][key][0]
             front = nodes[dayNum - 1][key][1]
             cap = key
-    print(gain)
     behind = dayNum - 1
     path = []
     # print([behind, cap])
     file = open("solution.txt", "w")
-    file.write(str(behind))
+    file.write(str(behind) + " " + str(cap) + " " + str(gain))
     while front != 0:
         for key in nodes[front]:
-            if key > cap and abs(nodes[behind][cap][0] - nodes[front][key][0] - (key - cap) * sell[behind]):
+            if key > cap and abs(nodes[behind][cap][0] - nodes[front][key][0] - (key - cap) * sell[behind]) < 1:
                 behind = front
                 cap = key
                 front = nodes[front][key][1]
-                file.write("S")
-                file.write(str(behind))
+                file.write("\nS\n")
+                file.write(str(behind) + " " + str(cap) + " " + str(nodes[behind][cap][0]))
                 # print(nodes[behind])
                 # print(cap)
                 # print(front)
@@ -69,8 +74,8 @@ if __name__ == "__main__":
                 behind = front
                 cap = key
                 front = nodes[front][key][1]
-                file.write("B")
-                file.write(str(behind))
+                file.write("\nB\n")
+                file.write(str(behind) + " " + str(cap) + " " + str(nodes[behind][cap][0]))
                 # print(nodes[behind])
                 # print(cap)
                 # print(front)
@@ -80,13 +85,16 @@ if __name__ == "__main__":
                 behind = front
                 cap = key
                 front = nodes[front][key][1]
-                file.write("N")
-                file.write(str(behind))
+                file.write("\nN\n")
+                file.write(str(behind) + " " + str(cap) + " " + str(nodes[behind][cap][0]))
                 # print(nodes[behind])
                 # print(cap)
                 # print(front)
                 # print(nodes[front])
                 break
+    localtime2 = time.localtime(time.time())
+    print(localtime1)
+    print(localtime2)
         
 
     
