@@ -1,0 +1,12 @@
+{
+  "_comment": "This is a sample JSON file. Anything starting with an underscore (like this _comment) should be ignored. Please always use comments to explain your JSON clearly to your marker",
+  "ballboySize": "normal",
+  "_ballboySizeComment": "Your main character can be normal or large. What pixel dimensions these match can be up to you.",
+  "ballboyPos": {
+    "x": 20.0,
+    "y": 20.0
+  },
+  "_ballboyPosComment": "ballboy start at the x and y position indicated. This must be a positive double.",
+  "cloudVelocity": 3.2,
+  "_cloudVelocityComment": "Clouds should move the given number of pixels per second. This must be a positive double. This is not a required feature but we leave it here as a sample only for students who are interested in this feature."
+}
