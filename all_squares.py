@@ -6,7 +6,24 @@ University of Toronto Mississauga
 
 # Do NOT add any "import" statements
 
-
+INF = 1e20
+def begin(dist):#assume that n-1 is the first square to jump
+    num = len(dist)
+    
+def end(dist): #assume that n-1 is the last square to jump
+    num = len(dist)
+    preSum = []
+    sum = 0
+    for i in range(num):
+        preSum.append(sum)
+        sum += dist[i][i + 1]
+    preSum.append(sum)
+    table = [0]
+    for i in range(1, num + 1):
+        table.append(INF)
+        for j in range(0, i):
+            table[i] = min(table[i], table[j] + preSum[i] - preSum[j])
+    return table[num - 1]
 def cheapest_cost(dist):
     '''
     dist[i][j] is the cost to move directly from square i to square j.
@@ -21,7 +38,8 @@ def cheapest_cost(dist):
 
     Return the cheapest cost to play the game.
     '''
-    pass  # TODO: implement this function
+    return min(begin(dist), end(dist))
+
 
 if __name__ == '__main__':
 
